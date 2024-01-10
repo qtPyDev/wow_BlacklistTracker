@@ -1,0 +1,3 @@
+<Bindings>
+  <Binding name="Toggle BlacklistTracker" category="BlacklistTracker"> BLT_Toggle(); </Binding>
+</Bindings>

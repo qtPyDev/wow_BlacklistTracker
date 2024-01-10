@@ -1,0 +1,8 @@
+## Interface: 20502
+## Title: BlacklistTracker
+## Author: qtPy
+## Version: 1.0.0
+
+BlacklistTracker.lua
+Bindings.xml
+BlacklistTracker.xml
