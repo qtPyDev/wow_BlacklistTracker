@@ -1,21 +1,23 @@
 --[[
 Copyright 2023-2024 qtPy
-BlacklistTracker is distributed under the terms of the GNU General Public License (Version 3).
-As a special exception, the copyright holders of this addon do not give permission to
-redistribute and/or modify it.
+BlacklistTracker is distributed under the terms of the All Rights Reserved License.
 
 This addon is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with the addon. If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 This file is part of BlacklistTracker.
 --]]
 
-BADACTORS = {
+local addon = {};
+local addonName = "BlacklistTracker";
+_G[addonName] = addon;
+
+local blacklistTrackerUI = {};
+local blacklistTrackerFunctions = {};
+local badActors = {};
+
+local lonewolfEUData = {
     {"Rubyx", "Scam"},
     {"Smegmafiend", "Scam"},
     {"Kajan", "Ninja"},
@@ -175,10 +177,47 @@ BADACTORS = {
     {"Syladdnas", "Ninja"},
     {"Frostberg", "Ninja"},
     {"Drafyr", "Ninja"},
-    {"Naid", "Ninja"}
+    {"Naid", "Ninja"},
+    {"Mandyy", "Ninja"},
+    {"Tellnotail", "Ninja"},
+    {"Dopingbaron", "Ninja"},
+    {"Pabloemilio", "Ninja"},
+    {"Dopsi", "Ninja"},
+    {"Falsaren", "Ninja"},
+    {"Elskede", "Ninja"},
+    {"Villyshilly", "Ninja"},
+    {"Healfull", "Ninja"},
+    {"Taiwannumone", "Scamming"},
+    {"Hykkas", "Scamming"},
+    {"Leonajdas", "Scamming"},
+    {"Galamat", "Ninja"},
+    {"Wuax", "Ninja"},
+    {"Litenflicka", "Ninja"},
+    {"Naihaz", "Scamming"},
+    {"Smokyz", "Scamming"}
 };
 
-COLOURS = {
+local chaosboltEUData = {
+    {"Xenas", "Ninja"},
+    {"Whoopty", "Ninja"},
+    {"Chain", "Ninja"},
+    {"Bigfish", "Ninja"},
+    {"Fådpå", "Ninja"},
+    {"Reiayanami", "Ninja"},
+    {"Zeromind", "Ninja"},
+    {"Vider", "Ninja"},
+    {"Sakibo", "Ninja"},
+    {"Hanted", "Ninja"},
+    {"Gracey", "Ninja"},
+    {"Assasination", "Ninja"},
+    {"Bellena", "Ninja"},
+    {"Qual", "Ninja"},
+    {"Unjones", "Ninja"},
+    {"Dziad", "Ninja"},
+    {"Bumbelbe", "Ninja"}
+};
+
+local colours = {
 	{
 		title = 'LIGHTBLUE',
 		color = 'cff00ccff',
@@ -281,52 +320,224 @@ COLOURS = {
 	},
 };
 
-APP_AUTHOR = "qtPy";
-APP_VERSION = "1.0.0";
-APP_DATE = "10-01-2024";
-APP_NAME = "BlacklistTracker";
-APP_SUPPORTEDREALMS = "Lonewolf (EU)";
+local appAuthor = "qtPy";
+local appVersion = "1.0.1";
+local appDate = "13-01-2024";
+local appName = "BlacklistTracker";
+local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU)";
 
-APP_WIDTH, APP_HEIGHT = 440, 150;
-APP_MARGIN = 20;
+local appWidth, appHeight = 440, 150;
+local appMargin = 20;
 
-APP_GITHUB = "github.com/qtPyDev/wow_BlacklistTracker"
-APP_CURSEFORGE = "www.curseforge.com/wow/addons/blacklisttracker"
+local appGithub = "github.com/qtPyDev/wow_BlacklistTracker"
+local appCurseforge = "www.curseforge.com/wow/addons/blacklisttracker"
 
-HOVER_LOCKED = false;
-UNITHOVER_TIMER = 0.5;
+local unithoverLock = false;
+local unithoverTimer = 0.5;
 
-GROUP_LOCKED = false;
-GROUP_TIMER = 60;
+local groupLock = false;
+local groupTimer = 60;
 
 local unitUpdateHoverFrame = CreateFrame("Frame", nil, UIParent);
 unitUpdateHoverFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT");
-unitUpdateHoverFrame:SetScript("OnEvent", UnitHoverHandler);
+unitUpdateHoverFrame:SetScript("OnEvent", blacklistTrackerFunctions.UnitHoverHandler);
 
 local groupUpdateFrame = CreateFrame("Frame", nil, UIParent);
 groupUpdateFrame:RegisterEvent("GROUP_ROSTER_UPDATE");
-groupUpdateFrame:SetScript("OnEvent", GroupUpdateHandler);
+groupUpdateFrame:SetScript("OnEvent", blacklistTrackerFunctions.GroupUpdateHandler);
 
-function SetColour(text, desiredColour)
+function blacklistTrackerUI.InitToolbar()
+    local BlacklistTrackerToolbar = CreateFrame(
+        "Frame", "BlacklistTrackerToolbar", UIParent, "BasicFrameTemplate");
+    local toolbarWidth, toolbarHeight = 200, 40;
+    BlacklistTrackerToolbar:SetSize(toolbarWidth, toolbarHeight);
+    BlacklistTrackerToolbar:SetPoint("CENTER", UIParent, "CENTER");
+    BlacklistTrackerToolbar:Hide();
+    BlacklistTrackerToolbar:SetMovable(true);
+    BlacklistTrackerToolbar:EnableMouse(true)
+    BlacklistTrackerToolbar:RegisterForDrag("LeftButton")
+    BlacklistTrackerToolbar:SetScript("OnDragStart", BlacklistTrackerToolbar.StartMoving)
+    BlacklistTrackerToolbar:SetScript("OnDragStop", BlacklistTrackerToolbar.StopMovingOrSizing)
+
+    BlacklistTrackerToolbar.title = BlacklistTrackerToolbar:CreateFontString(nil, "OVERLAY");
+    BlacklistTrackerToolbar.title:SetFontObject("GameFontHighlight");
+    BlacklistTrackerToolbar.title:SetPoint("LEFT", BlacklistTrackerToolbar.TitleBg, "LEFT", 5, 0);
+    BlacklistTrackerToolbar.title:SetText(appName .." Toolbar");
+
+    BlacklistTrackerToolbar.grabGUIDButton = CreateFrame(
+        "Button", nil, BlacklistTrackerToolbar, "UIPanelButtonTemplate");
+    BlacklistTrackerToolbar.grabGUIDButton:SetSize(100, 20);
+    BlacklistTrackerToolbar.grabGUIDButton:SetPoint("TOPLEFT", BlacklistTrackerToolbar, "TOPLEFT", 0, -20);
+    BlacklistTrackerToolbar.grabGUIDButton:SetText("Grab GUID");
+    BlacklistTrackerToolbar.grabGUIDButton:SetScript("OnClick", blacklistTrackerFunctions.GrabGUID);
+
+    BlacklistTrackerToolbar.toggleAppInfoButton = CreateFrame(
+        "Button", nil, BlacklistTrackerToolbar, "UIPanelButtonTemplate");
+    BlacklistTrackerToolbar.toggleAppInfoButton:SetSize(100, 20);
+    BlacklistTrackerToolbar.toggleAppInfoButton:SetPoint("TOPLEFT", BlacklistTrackerToolbar, "TOPLEFT", 100, -20);
+    BlacklistTrackerToolbar.toggleAppInfoButton:SetText("About...");
+    BlacklistTrackerToolbar.toggleAppInfoButton:SetScript("OnClick", blacklistTrackerUI.ToggleAppInfo);
+
+    return BlacklistTrackerToolbar;
+end
+
+function blacklistTrackerUI.InitAppInfo()
+    local BlacklistTrackerFrame = CreateFrame(
+        "Frame", "BlacklistTrackerFrame", UIParent, "BasicFrameTemplateWithInset");
+    BlacklistTrackerFrame:SetSize(appWidth, appHeight);
+    BlacklistTrackerFrame:SetPoint("CENTER", UIParent, "CENTER");
+    BlacklistTrackerFrame:Hide();
+    BlacklistTrackerFrame:SetMovable(false);
+
+    BlacklistTrackerFrame.title = BlacklistTrackerFrame:CreateFontString(nil, "OVERLAY");
+    BlacklistTrackerFrame.title:SetFontObject("GameFontHighlight");
+    BlacklistTrackerFrame.title:SetPoint("LEFT", BlacklistTrackerFrame.TitleBg, "LEFT", 5, 0);
+    BlacklistTrackerFrame.title:SetText(appName);
+
+    BlacklistTrackerFrame.version = BlacklistTrackerFrame:CreateFontString(nil, "OVERLAY");
+    BlacklistTrackerFrame.version:SetFontObject("GameFontHighlight");
+    BlacklistTrackerFrame.version:SetPoint("RIGHT", BlacklistTrackerFrame.TitleBg, "RIGHT", -5, 0);
+    BlacklistTrackerFrame.version:SetText("Version " ..appVersion);
+
+    BlacklistTrackerFrame.authorLabel = blacklistTrackerUI.CreateTextObject(
+        "Author: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -35);
+
+    BlacklistTrackerFrame.author = blacklistTrackerUI.CreateTextObject(
+        appAuthor, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -35);
+
+    BlacklistTrackerFrame.dateLabel = blacklistTrackerUI.CreateTextObject(
+        "Last Updated: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -55);
+
+    BlacklistTrackerFrame.date = blacklistTrackerUI.CreateTextObject(
+        appDate, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -55);
+
+    BlacklistTrackerFrame.githubLabel = blacklistTrackerUI.CreateTextObject(
+        "GitHub: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -75);
+
+    local githubLink = "|HurlIndex:25|h|cff006995".. appGithub .."|r|h"
+    BlacklistTrackerFrame.githubLink = blacklistTrackerUI.CreateEditBox(
+        githubLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -75);
+
+    BlacklistTrackerFrame.curseforgeLabel = blacklistTrackerUI.CreateTextObject(
+        "Curseforge: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -95);
+
+    local curseforgeLink = "|HurlIndex:25|h|cff006995".. appCurseforge .."|r|h"
+    BlacklistTrackerFrame.curseforgeLink = blacklistTrackerUI.CreateEditBox(
+        curseforgeLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -95);
+
+    BlacklistTrackerFrame.supportedRealmsLabel = blacklistTrackerUI.CreateTextObject(
+        "Realms: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -115);
+
+    BlacklistTrackerFrame.supportedRealms = blacklistTrackerUI.CreateTextObject(
+        appSupportedRealms, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -115);
+
+    return BlacklistTrackerFrame;
+end
+
+function blacklistTrackerUI.CreateTextObject(text, frame, point, x, y)
+    local textObject = frame:CreateFontString(nil, "OVERLAY");
+    textObject:SetFontObject("GameFontHighlight");
+    textObject:SetPoint(point, frame, point, x, y);
+    textObject:SetText(text);
+    return textObject;
+end
+
+function blacklistTrackerUI.CreateEditBox(text, frame, point, x, y)
+    local editBox = CreateFrame("EditBox", nil, frame, "InputBoxTemplate");
+    editBox:SetSize(300, 13);
+    editBox:SetPoint(point, frame, point, x, y);
+    editBox:SetText(text);
+    editBox:SetAutoFocus(false);
+    return editBox;
+end
+
+function blacklistTrackerUI.ToggleAppInfo()
+    local BlacklistTrackerFrame =  blacklistTrackerUI.InitAppInfo();
+    BlacklistTrackerFrame.SetShown(
+        BlacklistTrackerFrame, not BlacklistTrackerFrame:IsShown());
+end
+
+function blacklistTrackerUI.ToggleToolbar()
+    local BlacklistTrackerToolbar =  blacklistTrackerUI.InitToolbar();
+    BlacklistTrackerToolbar.SetShown(
+        BlacklistTrackerToolbar, not BlacklistTrackerToolbar:IsShown());
+end
+
+function blacklistTrackerFunctions.HandleSlashCommands(str)
+    if (str == "toggle") or (str == "") then
+        blacklistTrackerUI.ToggleToolbar();
+    elseif (str == "info") or (str == "about") then
+        blacklistTrackerUI.ToggleAppInfo();
+    elseif (str == "version") then
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Version " ..appVersion);
+    elseif string.match(str, "search") then
+        blacklistTrackerFunctions.CheckForBadActor(str, "search");
+    elseif string.match(str, "find") then
+        blacklistTrackerFunctions.CheckForBadActor(str, "find");
+    elseif (str == "grab") then
+        blacklistTrackerFunctions.GrabGUID();
+    elseif (str == "help") then
+        print("");
+        print("BlacklistTracker: /BL OR /BL toggle - Toggles the BlacklistTracker menu.");
+        print("BlacklistTracker: /BL info OR /BL about - Shows information about the addon.");
+        print("BlacklistTracker: /BL version - Shows the current version of the addon.");
+        print("BlacklistTracker: /BL search <name> - Searches for a player in the blacklist.");
+        print("BlacklistTracker: /BL find <name> - Searches for a player in the blacklist.");
+        print("BlacklistTracker: /BL grab - Grabs the GUID of the current target.");
+        print("BlacklistTracker: /BL help - Shows a help message.");
+        print("");
+    else
+        print("BlacklistTracker: Invalid command, use /BL help for a list of commands.");
+    end
+end
+
+function blacklistTrackerFunctions.GrabGUID()
+    local name = UnitName("target");
+    if name then
+        C_FriendList.AddFriend(name);
+        C_Timer.After(1, function()
+            local guid = C_FriendList.GetFriendInfo(name).guid;
+            print(guid);
+            C_FriendList.RemoveFriend(name);
+        end)
+    else
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."No target selected.");
+    end
+end
+
+function blacklistTrackerFunctions.LoadRealmData()
+    print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Loading Realm Data... ")
+    if GetRealmName() == "Lonewolf" then
+        badActors = lonewolfEUData
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
+    elseif GetRealmName() == "Chaos Bolt" then
+        badActors = chaosboltEUData
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
+    else
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker is not supported on " ..GetRealmName());
+    end
+end
+
+function blacklistTrackerFunctions.SetColour(text, desiredColour)
 	local startLine = '\124';
 	local endLine = '\124r';
-	for i = 1, #COLOURS do
-        if COLOURS[i].title == desiredColour then
-            return startLine .. COLOURS[i].color .. text .. endLine;
+	for i = 1, #colours do
+        if colours[i].title == desiredColour then
+            return startLine .. colours[i].color .. text .. endLine;
         end
 	end
 end
 
-function GroupUpdateHandler()
-    if not GROUP_LOCKED then
-        GROUP_LOCKED = true;
+function blacklistTrackerFunctions.GroupUpdateHandler()
+    if not groupLock then
+        groupLock = true;
         if IsInRaid() then
             for i=1,40 do
                 local name = GetRaidRosterInfo(i);
                 if name then
-                    for j=1, #BADACTORS do
-                        if BADACTORS[j][1] == name then
-                            Group_ProcessBadActor(BADACTORS[j])
+                    for j=1, #badActors do
+                        if badActors[j][1] == name then
+                            blacklistTrackerFunctions.Group.ProcessBadActor(badActors[j])
                         end
                     end
                 end
@@ -335,56 +546,60 @@ function GroupUpdateHandler()
             for i=1,5 do
                 local name = GetRaidRosterInfo(i);
                 if name then
-                    for j=1, #BADACTORS do
-                        if BADACTORS[j][1] == name then
-                            Group_ProcessBadActor(BADACTORS[j])
+                    for j=1, #badActors do
+                        if badActors[j][1] == name then
+                            blacklistTrackerFunctions.Group.ProcessBadActor(badActors[j])
                         end
                     end
                 end
             end
         end
-        C_Timer.After(GROUP_TIMER, function()
-            GROUP_LOCKED = false;
+        C_Timer.After(groupTimer, function()
+            groupLock = false;
         end)
     end
 end
 
-function UnitHoverHandler()
-    if not HOVER_LOCKED then
+function blacklistTrackerFunctions.UnitHoverHandler()
+    if not unithoverLock then
         local name = UnitName("mouseover");
         if name then
-            HOVER_LOCKED = true;
-            for i=1, #BADACTORS do
-                if BADACTORS[i][1] == name then
-                    UnitFrame_ProcessBadActor(BADACTORS[i])
+            unithoverLock = true;
+            for i=1, #badActors do
+                if badActors[i][1] == name then
+                    blacklistTrackerFunctions.UnitFrame.ProcessBadActor(badActors[i])
                 end
             end
-            C_Timer.After(UNITHOVER_TIMER, function()
-                HOVER_LOCKED = false;
+            C_Timer.After(unithoverTimer, function()
+                unithoverLock = false;
             end)
         end
     end
 end
 
-function UnitFrame_ProcessBadActor(badActor)
+blacklistTrackerFunctions.UnitFrame = {};
+
+function blacklistTrackerFunctions.UnitFrame.ProcessBadActor(badActor)
     local name = badActor[1];
     local reason = badActor[2];
-    GameTooltip:AppendText(SetColour(" [Blacklisted]", "RED"));
-    SendWarning(name, reason);
+    GameTooltip:AppendText(blacklistTrackerFunctions.SetColour(" [Blacklisted]", "RED"));
+    blacklistTrackerFunctions.SendWarning(name, reason);
 end
 
-function Group_ProcessBadActor(badActor)
+blacklistTrackerFunctions.Group = {};
+
+function blacklistTrackerFunctions.Group.ProcessBadActor(badActor)
     local name = badActor[1];
     local reason = badActor[2];
-    SendWarning(name, reason);
+    blacklistTrackerFunctions.SendWarning(name, reason);
 end
 
-function SendWarning(name, reason)
+function blacklistTrackerFunctions.SendWarning(name, reason)
     -- Prints a warning message to the chat window
-    local warningMessage =  SetColour(
+    local warningMessage =  blacklistTrackerFunctions.SetColour(
         name.. " is blacklisted for " ..reason, "RED");
     print("")
-    print(SetColour("[WARNING]: ","LIGHTBLUE") ..warningMessage);
+    print(blacklistTrackerFunctions.SetColour("[WARNING]: ","LIGHTBLUE") ..warningMessage);
 
     local level = UnitLevel(name);
     local class = UnitClass(name);
@@ -392,26 +607,26 @@ function SendWarning(name, reason)
 
     -- Prints a note message relaying level, race and class info to the chat window
     print (
-        SetColour(
+        blacklistTrackerFunctions.SetColour(
             "[Info]: ","LIGHTBLUE") .."Level " ..level.. " " ..race.. " " ..class);
 
     -- Prints a note message relaying guild info to the chat window
     local guildName, guildRankName, guildRankIndex = GetGuildInfo(name);
     if guildName then
-        local guildMessage = SetColour(
+        local guildMessage = blacklistTrackerFunctions.SetColour(
             name.. " is in <" ..guildName.. "> and is Rank: " ..guildRankName, "GREEN");
-        print(SetColour("[Guild]: ","LIGHTBLUE") ..guildMessage);
+        print(blacklistTrackerFunctions.SetColour("[Guild]: ","LIGHTBLUE") ..guildMessage);
         print("")
     else
-        local guildMessage = SetColour(
+        local guildMessage = blacklistTrackerFunctions.SetColour(
             name.. " is not in a guild.", "GREEN");
         print(
-            SetColour("[Guild]: " ,"LIGHTBLUE") ..guildMessage);
+            blacklistTrackerFunctions.SetColour("[Guild]: " ,"LIGHTBLUE") ..guildMessage);
             print("")
     end
 end
 
-function CheckForBadActor(str, cmd)
+function blacklistTrackerFunctions.CheckForBadActor(str, cmd)
     local name = ""
     if cmd == "search" then
         name = string.match(str, "search%s(.+)");
@@ -419,111 +634,21 @@ function CheckForBadActor(str, cmd)
         name = string.match(str, "find%s(.+)");
     end
     local found = false;
-    for i=1, #BADACTORS do
-        if BADACTORS[i][1] == name then
+    for i=1, #badActors do
+        if string.lower(badActors[i][1]) == string.lower(name) then
             found = true;
-            SendWarning(BADACTORS[i][1], BADACTORS[i][2]);
+            blacklistTrackerFunctions.SendWarning(badActors[i][1], badActors[i][2]);
         end
     end
     if not found then
-        print(SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."No results found for " ..name);
-    end
-end
-
-BlacklistTrackerUI = {};
-
-function BlacklistTrackerUI.Initialize()
-    local BlacklistTrackerFrame = CreateFrame(
-        "Frame", "BlacklistTrackerFrame", UIParent, "BasicFrameTemplateWithInset");
-    BlacklistTrackerFrame:SetSize(APP_WIDTH, APP_HEIGHT);
-    BlacklistTrackerFrame:SetPoint("CENTER", UIParent, "CENTER");
-    BlacklistTrackerFrame:Hide();
-    BlacklistTrackerFrame:SetMovable(false);
-
-    BlacklistTrackerFrame.title = BlacklistTrackerFrame:CreateFontString(nil, "OVERLAY");
-    BlacklistTrackerFrame.title:SetFontObject("GameFontHighlight");
-    BlacklistTrackerFrame.title:SetPoint("LEFT", BlacklistTrackerFrame.TitleBg, "LEFT", 5, 0);
-    BlacklistTrackerFrame.title:SetText(APP_NAME);
-
-    BlacklistTrackerFrame.version = BlacklistTrackerFrame:CreateFontString(nil, "OVERLAY");
-    BlacklistTrackerFrame.version:SetFontObject("GameFontHighlight");
-    BlacklistTrackerFrame.version:SetPoint("RIGHT", BlacklistTrackerFrame.TitleBg, "RIGHT", -5, 0);
-    BlacklistTrackerFrame.version:SetText("Version " ..APP_VERSION);
-
-    BlacklistTrackerFrame.authorLabel = BlacklistTrackerUI.CreateTextObject(
-        "Author: ", BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN, -35);
-
-    BlacklistTrackerFrame.author = BlacklistTrackerUI.CreateTextObject(
-        APP_AUTHOR, BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN+100, -35);
-
-    BlacklistTrackerFrame.dateLabel = BlacklistTrackerUI.CreateTextObject(
-        "Last Updated: ", BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN, -55);
-
-    BlacklistTrackerFrame.date = BlacklistTrackerUI.CreateTextObject(
-        APP_DATE, BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN+100, -55);
-
-    BlacklistTrackerFrame.githubLabel = BlacklistTrackerUI.CreateTextObject(
-        "GitHub: ", BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN, -75);
-
-    local githubLink = "|HurlIndex:25|h|cff006995".. APP_GITHUB .."|r|h"
-    BlacklistTrackerFrame.githubLink = BlacklistTrackerUI.CreateTextObject(
-        githubLink, BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN+100, -75);
-
-    BlacklistTrackerFrame.curseforgeLabel = BlacklistTrackerUI.CreateTextObject(
-        "Curseforge: ", BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN, -95);
-
-    local curseforgeLink = "|HurlIndex:25|h|cff006995".. APP_CURSEFORGE .."|r|h"
-    BlacklistTrackerFrame.curseforgeLink = BlacklistTrackerUI.CreateTextObject(
-        curseforgeLink, BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN+100, -95);
-
-    BlacklistTrackerFrame.supportedRealmsLabel = BlacklistTrackerUI.CreateTextObject(
-        "Realms: ", BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN, -115);
-
-    BlacklistTrackerFrame.supportedRealms = BlacklistTrackerUI.CreateTextObject(
-        APP_SUPPORTEDREALMS, BlacklistTrackerFrame, "TOPLEFT", APP_MARGIN+100, -115);
-
-    return BlacklistTrackerFrame;
-end
-
-function BlacklistTrackerUI.CreateTextObject(text, frame, point, x, y)
-    local textObject = frame:CreateFontString(nil, "OVERLAY");
-    textObject:SetFontObject("GameFontHighlight");
-    textObject:SetPoint(point, frame, point, x, y);
-    textObject:SetText(text);
-    return textObject;
-end
-
-function BlacklistTracker_Toggle()
-    local BlacklistTrackerFrame =  BlacklistTrackerUI.Initialize();
-    if (BlacklistTrackerFrame:IsShown()) then
-        BlacklistTrackerFrame:Hide();
-    else
-        BlacklistTrackerFrame:Show();
-    end
-end
-
-function HandleSlashCommands(str)
-    if (str == "toggle") or (str == "") then
-        BlacklistTracker_Toggle();
-    elseif (str == "version") then
-        print(SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Version " ..APP_VERSION);
-    elseif string.match(str, "search") then
-        CheckForBadActor(str, "search");
-    elseif string.match(str, "find") then
-        CheckForBadActor(str, "find");
-    elseif (str == "help") then
-        print("");
-        print("BlacklistTracker: /BL OR /BL toggle - Toggles the BlacklistTracker menu.");
-        print("BlacklistTracker: /BL help - Shows a help message.");
-        print("");
-    else
-        print("BlacklistTracker: Invalid command, use /BL help for a list of commands.");
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."No results found for " ..name);
     end
 end
 
 function BlacklistTracker_OnLoad()
-    SlashCmdList["BlacklistTracker"] = HandleSlashCommands;
+    blacklistTrackerFunctions.LoadRealmData();
+    blacklistTrackerUI.ToggleToolbar();
+    SlashCmdList["BlacklistTracker"] = blacklistTrackerFunctions.HandleSlashCommands;
     SLASH_BlacklistTracker1= "/BlacklistTracker";
     SLASH_BlacklistTracker2= "/BL";
-    this:RegisterEvent("VARIABLES_LOADED");
 end
