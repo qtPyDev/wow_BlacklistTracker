@@ -194,7 +194,26 @@ local lonewolfEUData = {
     {"Wuax", "Ninja"},
     {"Litenflicka", "Ninja"},
     {"Naihaz", "Scamming"},
-    {"Smokyz", "Scamming"}
+    {"Smokyz", "Scamming"},
+    {"Subbogz", "Ninja"},
+    {"Elesium", "Ninja"},
+    {"Voljina", "Scamming"},
+    {"Shooterarre", "Ninja"},
+    {"Rojk", "Ninja"},
+    {"Anackira", "Ninja"},
+    {"Euterwar", "Ninja"},
+    {"Anchoa", "Ninja"},
+    {"Porrito", "Ninja"},
+    {"Hasselnus", "Ninja"},
+    {"Velason", "Ninja"},
+    {"Golk", "Ninja"},
+    {"Zatoc", "Ninja"},
+    {"Reggieuk", "Ninja"},
+    {"Cruanya", "Ninja"},
+    {"Embrion", "Ninja"},
+    {"Rogeone", "Ninja"},
+    {"Venomlol", "Scamming"},
+    {"Melanji", "Ninja"}
 };
 
 local chaosboltEUData = {
@@ -214,7 +233,9 @@ local chaosboltEUData = {
     {"Qual", "Ninja"},
     {"Unjones", "Ninja"},
     {"Dziad", "Ninja"},
-    {"Bumbelbe", "Ninja"}
+    {"Bumbelbe", "Ninja"},
+    {"Hommie", "Ninja"},
+    {"Elaana", "Ninja"}
 };
 
 local colours = {
@@ -507,7 +528,7 @@ end
 
 function blacklistTrackerFunctions.LoadRealmData()
     print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Loading Realm Data... ")
-    if GetRealmName() == "Lonewolf" then
+    if GetRealmName() == "Lone Wolf" then
         badActors = lonewolfEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     elseif GetRealmName() == "Chaos Bolt" then
