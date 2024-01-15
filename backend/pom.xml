@@ -34,10 +34,45 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${plugins.openapi-generator.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <phase>validate</phase>
+                            <configuration>
+                                <inputSpec>${project.basedir}/../openapi.yml</inputSpec>
+                                <generatorName>kotlin-spring</generatorName>
+                                <configOptions>
+                                    <basePackage>org.blacklist_tracker.backend.stubs</basePackage>
+                                    <apiPackage>org.blacklist_tracker.backend.stubs.api</apiPackage>
+                                    <modelPackage>org.blacklist_tracker.backend.stubs.model</modelPackage>
+                                    <modelNameSuffix>Dto</modelNameSuffix>
+                                    <apiSuffix>Controller</apiSuffix>
+                                    <useSpringBoot3>true</useSpringBoot3>
+                                    <delegatePattern>true</delegatePattern>
+                                    <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                                </configOptions>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
