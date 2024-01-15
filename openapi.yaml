@@ -7,7 +7,7 @@ servers:
     description: "local testing"
 
 paths:
-  /:
+  /blacklist:
     post:
       operationId: addBlacklistEntry
       requestBody:
