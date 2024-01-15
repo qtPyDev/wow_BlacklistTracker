@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: BlacklistTracker
+servers:
+  - url: "http://localhost"
+    description: "local testing"
+
+paths:
+  /:
+    post:
+      operationId: addBlacklistEntry
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/blacklist_entry'
+      responses:
+        default:
+          description: error occured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '201':
+          description: entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/empty'
+
+components:
+  schemas:
+    empty:
+      title: "Empty"
+      description: "empty data transfer object"
+      type: object
+      readOnly: true
+    error:
+      title: "Error"
+      description: "error message/reason"
+      type: string
+      readOnly: true
+      nullable: false
+      example: "error happened due to xyz"
+    blacklist_entry:
+      title: "BlacklistEntry"
+      description: "Entry of the Blacklist"
+      type: object
+      required:
+        - playerName
+        - realm
+        - reason
+      properties:
+        playerName:
+          title: "PlayerName"
+          description: "Name of the blacklisted Player"
+          type: string
+          nullable: false
+          example: "Retailandy"
+        realm:
+          title: "Realm"
+          description: "Realm of the blacklisted Player"
+          type: string
+          nullable: false
+          example: "Lone Wolf"
+        reason:
+          title: "Reason"
+          description: "Reason for blacklisting"
+          type: string
+          nullable: false
+          enum: ["ninjaloot", "scam", "unknown"]
+          example: "ninjaloot"
