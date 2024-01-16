@@ -1,0 +1,14 @@
+spring:
+  main.banner-mode: "off"
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties.hibernate:
+      format_sql: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5433/blacklist_tracker
