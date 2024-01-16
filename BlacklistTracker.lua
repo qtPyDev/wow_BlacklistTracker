@@ -17,227 +17,6 @@ local blacklistTrackerUI = {};
 local blacklistTrackerFunctions = {};
 local badActors = {};
 
-local lonewolfEUData = {
-    {"Rubyx", "Scam"},
-    {"Smegmafiend", "Scam"},
-    {"Kajan", "Ninja"},
-    {"Calleman", "Ninja"},
-    {"Erkabus", "Ninja"},
-    {"Tidruid", "Ninja"},
-    {"Chocolovë", "Ninja"},
-    {"Sithyn", "Ninja"},
-    {"Nesrýo", "Scamming"},
-    {"Kdog", "Ninja"},
-    {"Zearck", "Ninja"},
-    {"Dakistan", "Ninja"},
-    {"Bigsword", "Ninja"},
-    {"Yannicka", "Ninja"},
-    {"Mgae", "Ninja"},
-    {"Maimed", "Ninja"},
-    {"Belvor", "Ninja"},
-    {"Metts", "Ninja"},
-    {"Ynot", "Ninja"},
-    {"Rockzorr", "Ninja"},
-    {"Outbreak", "Ninja"},
-    {"Ozlo", "Ninja"},
-    {"Icediablo", "Ninja"},
-    {"Kavalan", "Ninja"},
-    {"Starlord", "Ninja"},
-    {"Iava", "Ninja"},
-    {"Gamersixnine", "Ninja"},
-    {"Swiftooga", "Ninja"},
-    {"Aixi", "Ninja"},
-    {"Sweatlord", "Ninja"},
-    {"Perfectum", "Ninja"},
-    {"Orochishaman", "Ninja"},
-    {"Akakabuto", "Ninja"},
-    {"Clynda", "Ninja"},
-    {"Harryhotta", "Ninja"},
-    {"Lushx", "Ninja"},
-    {"Valoche", "Ninja"},
-    {"Róadman", "Ninja"},
-    {"Gahpabab", "Ninja"},
-    {"Klaura", "Ninja"},
-    {"Shelox", "Ninja"},
-    {"Zappetizer", "Ninja"},
-    {"Gigashotz", "Ninja"},
-    {"Ottan", "Ninja"},
-    {"Edentée", "Ninja"},
-    {"Shunly", "Ninja"},
-    {"Vannkjerring", "Ninja"},
-    {"Shampion", "Ninja"},
-    {"Syzlak", "Ninja"},
-    {"Warhead", "Ninja"},
-    {"Yobacrow", "Ninja"},
-    {"Mosthofs", "Ninja"},
-    {"Faustino", "Ninja"},
-    {"Smissen", "Ninja"},
-    {"Lysdexii", "Ninja"},
-    {"Blazern", "Ninja"},
-    {"Grimpöcket", "Ninja"},
-    {"Chrizzy", "Ninja"},
-    {"Muchentuchen", "Ninja"},
-    {"Firechilli", "Ninja"},
-    {"Pizzaman", "Ninja"},
-    {"Lícht", "Ninja"},
-    {"Shrimpis", "Ninja"},
-    {"Eldre", "Ninja"},
-    {"Maantzy", "Ninja"},
-    {"Luzif", "Ninja"},
-    {"Perfidious", "Ninja"},
-    {"Wyand", "Ninja"},
-    {"Bignogger", "Ninja"},
-    {"Drfrost", "Ninja"},
-    {"Alucàrd", "Ninja"},
-    {"Riotstroke", "Ninja"},
-    {"Leshanker", "Ninja"},
-    {"Orcofbattle", "Grief"},
-    {"Purekekdru", "Scamming"},
-    {"Zaroph", "Ninja"},
-    {"Litium", "Ninja"},
-    {"Jayjigga", "Ninja"},
-    {"Waywigga", "Ninja"},
-    {"Danng", "Ninja"},
-    {"Eiko", "Ninja"},
-    {"Slaysatyx", "Ninja"},
-    {"Milkboba", "Ninja"},
-    {"Kindredi", "Ninja"},
-    {"Lorosk", "Scamming"},
-    {"Cofu", "Ninja"},
-    {"Patopekin", "Ninja"},
-    {"Baraddûr", "Ninja"},
-    {"Warees", "Ninja"},
-    {"Desastro", "Ninja"},
-    {"Kimboslice", "Ninja"},
-    {"Nakht", "Ninja"},
-    {"Denlox", "Ninja"},
-    {"Raeudiger", "Ninja"},
-    {"Akjshaman", "Ninja"},
-    {"Sotskalle", "Ninja"},
-    {"Lichtfutz", "Ninja"},
-    {"Votarax", "Ninja"},
-    {"Seynaqt", "Ninja"},
-    {"Letmehugyou", "Ninja"},
-    {"Zelenk", "Ninja"},
-    {"Myslbergsprk", "Ninja"},
-    {"Rendtoni", "Ninja"},
-    {"Syphyte", "Ninja"},
-    {"Vazy", "Ninja"},
-    {"Daidara", "Ninja"},
-    {"Porf", "Ninja"},
-    {"Porojames", "Ninja"},
-    {"Infrar", "Ninja"},
-    {"Spilly", "Ninja"},
-    {"Miven", "Ninja"},
-    {"Gdkpenjøyer", "Ninja"},
-    {"Fnatik", "Ninja"},
-    {"Vigør", "Scamming"},
-    {"Zootycoon", "Ninja"},
-    {"Foggypoison", "Scamming"},
-    {"Veeko", "Ninja"},
-    {"Nimeria", "Ninja"},
-    {"Trollbolts", "Ninja"},
-    {"Draxeros", "Ninja"},
-    {"Casualx", "Ninja"},
-    {"Wabulabdab", "Ninja"},
-    {"Moishe", "Ninja"},
-    {"Sleo", "Ninja"},
-    {"Locktorwho", "Ninja"},
-    {"Betrayal", "Ninja"},
-    {"Tonicruanyes", "Ninja"},
-    {"Daddelmaus", "Ninja"},
-    {"Gokel", "Ninja"},
-    {"Usynelig", "Ninja"},
-    {"Poxsy", "Ninja"},
-    {"Bogbrush", "Ninja"},
-    {"Poniat", "Ninja"},
-    {"Grumpymage", "Ninja"},
-    {"Krimoo", "Ninja"},
-    {"Chöpter", "Ninja"},
-    {"Texte", "Ninja"},
-    {"League", "Ninja"},
-    {"Crydowed", "Ninja"},
-    {"Parseorleave", "Ninja"},
-    {"Røgue", "Ninja"},
-    {"Karigaffel", "Ninja"},
-    {"Yesmaster", "Ninja"},
-    {"Udødelig", "Ninja"},
-    {"Nyom", "Ninja"},
-    {"Nesteagodx", "Ninja"},
-    {"Schnödelschu", "Ninja"},
-    {"Getosuguru", "Scamming"},
-    {"Peefarm", "Ninja"},
-    {"Gbodziog", "Ninja"},
-    {"Soseb", "Ninja"},
-    {"Huanted", "Ninja"},
-    {"Stèv", "Ninja"},
-    {"Peetea", "Ninja"},
-    {"Cifrabubi", "Ninja"},
-    {"Extacc", "Ninja"},
-    {"Syladdnas", "Ninja"},
-    {"Frostberg", "Ninja"},
-    {"Drafyr", "Ninja"},
-    {"Naid", "Ninja"},
-    {"Mandyy", "Ninja"},
-    {"Tellnotail", "Ninja"},
-    {"Dopingbaron", "Ninja"},
-    {"Pabloemilio", "Ninja"},
-    {"Dopsi", "Ninja"},
-    {"Falsaren", "Ninja"},
-    {"Elskede", "Ninja"},
-    {"Villyshilly", "Ninja"},
-    {"Healfull", "Ninja"},
-    {"Taiwannumone", "Scamming"},
-    {"Hykkas", "Scamming"},
-    {"Leonajdas", "Scamming"},
-    {"Galamat", "Ninja"},
-    {"Wuax", "Ninja"},
-    {"Litenflicka", "Ninja"},
-    {"Naihaz", "Scamming"},
-    {"Smokyz", "Scamming"},
-    {"Subbogz", "Ninja"},
-    {"Elesium", "Ninja"},
-    {"Voljina", "Scamming"},
-    {"Shooterarre", "Ninja"},
-    {"Rojk", "Ninja"},
-    {"Anackira", "Ninja"},
-    {"Euterwar", "Ninja"},
-    {"Anchoa", "Ninja"},
-    {"Porrito", "Ninja"},
-    {"Hasselnus", "Ninja"},
-    {"Velason", "Ninja"},
-    {"Golk", "Ninja"},
-    {"Zatoc", "Ninja"},
-    {"Reggieuk", "Ninja"},
-    {"Cruanya", "Ninja"},
-    {"Embrion", "Ninja"},
-    {"Rogeone", "Ninja"},
-    {"Venomlol", "Scamming"},
-    {"Melanji", "Ninja"}
-};
-
-local chaosboltEUData = {
-    {"Xenas", "Ninja"},
-    {"Whoopty", "Ninja"},
-    {"Chain", "Ninja"},
-    {"Bigfish", "Ninja"},
-    {"Fådpå", "Ninja"},
-    {"Reiayanami", "Ninja"},
-    {"Zeromind", "Ninja"},
-    {"Vider", "Ninja"},
-    {"Sakibo", "Ninja"},
-    {"Hanted", "Ninja"},
-    {"Gracey", "Ninja"},
-    {"Assasination", "Ninja"},
-    {"Bellena", "Ninja"},
-    {"Qual", "Ninja"},
-    {"Unjones", "Ninja"},
-    {"Dziad", "Ninja"},
-    {"Bumbelbe", "Ninja"},
-    {"Hommie", "Ninja"},
-    {"Elaana", "Ninja"}
-};
-
 local colours = {
 	{
 		title = 'LIGHTBLUE',
@@ -342,8 +121,8 @@ local colours = {
 };
 
 local appAuthor = "qtPy";
-local appVersion = "1.0.1";
-local appDate = "13-01-2024";
+local appVersion = "1.0.2";
+local appDate = "14-01-2024";
 local appName = "BlacklistTracker";
 local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU)";
 
@@ -437,14 +216,14 @@ function blacklistTrackerUI.InitAppInfo()
 
     local githubLink = "|HurlIndex:25|h|cff006995".. appGithub .."|r|h"
     BlacklistTrackerFrame.githubLink = blacklistTrackerUI.CreateEditBox(
-        githubLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -75);
+        githubLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -75, 300, 13);
 
     BlacklistTrackerFrame.curseforgeLabel = blacklistTrackerUI.CreateTextObject(
         "Curseforge: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -95);
 
     local curseforgeLink = "|HurlIndex:25|h|cff006995".. appCurseforge .."|r|h"
     BlacklistTrackerFrame.curseforgeLink = blacklistTrackerUI.CreateEditBox(
-        curseforgeLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -95);
+        curseforgeLink, BlacklistTrackerFrame, "TOPLEFT", appMargin+100, -95, 300, 13);
 
     BlacklistTrackerFrame.supportedRealmsLabel = blacklistTrackerUI.CreateTextObject(
         "Realms: ", BlacklistTrackerFrame, "TOPLEFT", appMargin, -115);
@@ -455,6 +234,34 @@ function blacklistTrackerUI.InitAppInfo()
     return BlacklistTrackerFrame;
 end
 
+function blacklistTrackerUI.InitGUIDDialog(guid)
+    local Dialog = CreateFrame(
+        "Frame", "BlacklistTrackerGUIDGrabDialog", UIParent, "BasicFrameTemplate");
+    local toolbarWidth, toolbarHeight = 200, 60;
+    Dialog:SetSize(toolbarWidth, toolbarHeight);
+    Dialog:SetPoint("CENTER", UIParent, "CENTER");
+    Dialog:Hide();
+    Dialog:SetMovable(true);
+    Dialog:EnableMouse(true)
+    Dialog:RegisterForDrag("LeftButton")
+    Dialog:SetScript("OnDragStart", Dialog.StartMoving)
+    Dialog:SetScript("OnDragStop", Dialog.StopMovingOrSizing)
+
+    Dialog.title = Dialog:CreateFontString(nil, "OVERLAY");
+    Dialog.title:SetFontObject("GameFontHighlight");
+    Dialog.title:SetPoint("LEFT", Dialog.TitleBg, "LEFT", 5, 0);
+    Dialog.title:SetText(appName .." GrabGUID");
+
+    Dialog.guidLabel = blacklistTrackerUI.CreateTextObject(
+        blacklistTrackerFunctions.SetColour("Player GUID (Copy Here): ", "LIGHTBLUE"), Dialog, "TOPLEFT", 5, -25);
+
+    local guidLink = "|HurlIndex:25|h|cff006995".. guid .."|r|h"
+    Dialog.guidLink = blacklistTrackerUI.CreateEditBox(
+        guidLink, Dialog, "TOPLEFT", 5, -40, 195, 20);
+    
+    return Dialog;
+end
+
 function blacklistTrackerUI.CreateTextObject(text, frame, point, x, y)
     local textObject = frame:CreateFontString(nil, "OVERLAY");
     textObject:SetFontObject("GameFontHighlight");
@@ -463,9 +270,9 @@ function blacklistTrackerUI.CreateTextObject(text, frame, point, x, y)
     return textObject;
 end
 
-function blacklistTrackerUI.CreateEditBox(text, frame, point, x, y)
+function blacklistTrackerUI.CreateEditBox(text, frame, point, x, y, sizeX, sizeY)
     local editBox = CreateFrame("EditBox", nil, frame, "InputBoxTemplate");
-    editBox:SetSize(300, 13);
+    editBox:SetSize(sizeX, sizeY);
     editBox:SetPoint(point, frame, point, x, y);
     editBox:SetText(text);
     editBox:SetAutoFocus(false);
@@ -482,6 +289,14 @@ function blacklistTrackerUI.ToggleToolbar()
     local BlacklistTrackerToolbar =  blacklistTrackerUI.InitToolbar();
     BlacklistTrackerToolbar.SetShown(
         BlacklistTrackerToolbar, not BlacklistTrackerToolbar:IsShown());
+end
+
+function blacklistTrackerUI.ToggleGUIDGrabDialog(guid)
+    if guid then
+        local BlacklistTrackerGUIDDialog = blacklistTrackerUI.InitGUIDDialog(guid);
+        BlacklistTrackerGUIDDialog.SetShown(
+            BlacklistTrackerGUIDDialog, not BlacklistTrackerGUIDDialog:IsShown());
+    end
 end
 
 function blacklistTrackerFunctions.HandleSlashCommands(str)
@@ -518,7 +333,8 @@ function blacklistTrackerFunctions.GrabGUID()
         C_FriendList.AddFriend(name);
         C_Timer.After(1, function()
             local guid = C_FriendList.GetFriendInfo(name).guid;
-            print(guid);
+            print(blacklistTrackerFunctions.SetColour(guid.. " |||| " ..name, "LIGHTBLUE"));
+            blacklistTrackerUI.ToggleGUIDGrabDialog(guid);
             C_FriendList.RemoveFriend(name);
         end)
     else
@@ -529,10 +345,10 @@ end
 function blacklistTrackerFunctions.LoadRealmData()
     print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Loading Realm Data... ")
     if GetRealmName() == "Lone Wolf" then
-        badActors = lonewolfEUData
+        badActors = BadActorsData.chaosboltEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     elseif GetRealmName() == "Chaos Bolt" then
-        badActors = chaosboltEUData
+        badActors = BadActorsData.chaosboltEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     else
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker is not supported on " ..GetRealmName());
