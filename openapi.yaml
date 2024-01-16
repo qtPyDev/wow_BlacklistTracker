@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: BlacklistTracker
 servers:
-  - url: "http://localhost"
+  - url: "http://localhost:8080"
     description: "local testing"
 
 paths:
@@ -35,13 +35,6 @@ paths:
       summary: download lua
       operationId: downloadLua
       description: this API is for file download
-      parameters:
-        - in: path
-          name: realm
-          required: false
-          schema:
-            type: string
-          description: opt. name of the realm to be filtered by
       responses:
         default:
           description: error occured
@@ -52,7 +45,7 @@ paths:
         200:
           description: Operation performed successfully.
           content:
-            application/plain:
+            application/octet-stream:
               schema:
                 type: string
                 format: binary
