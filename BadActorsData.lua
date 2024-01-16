@@ -196,7 +196,23 @@ local lonewolfEUData = {
     {"Embrion", "Ninja"},
     {"Rogeone", "Ninja"},
     {"Venomlol", "Scamming"},
-    {"Melanji", "Ninja"}
+    {"Melanji", "Ninja"},
+    {"Blitzkrigare", "Ninja"},
+    {"Tinyhunter", "Scamming"},
+    {"Milika", "Ninja"},
+    {"Gorehowler", "Ninja"},
+    {"Sancaktar", "Ninja"},
+    {"Akzduill", "Ninja"},
+    {"Rördusådördu", "Ninja"},
+    {"Garlingz", "Ninja"},
+    {"Øzin", "Ninja"},
+    {"Vux", "Ninja"},
+    {"Lladosfîtnes", "Scamming"},
+    {"Siegman", "Ninja"},
+    {"Vordhosbh", "Ninja"},
+    {"Aminakoya", "Ninja"},
+    {"Trollebolle", "Ninja"},
+    {"Acheos", "Ninja"}
 };
 
 local chaosboltEUData = {

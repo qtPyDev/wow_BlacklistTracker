@@ -258,7 +258,7 @@ function blacklistTrackerUI.InitGUIDDialog(guid)
     local guidLink = "|HurlIndex:25|h|cff006995".. guid .."|r|h"
     Dialog.guidLink = blacklistTrackerUI.CreateEditBox(
         guidLink, Dialog, "TOPLEFT", 5, -40, 195, 20);
-    
+
     return Dialog;
 end
 
@@ -345,7 +345,7 @@ end
 function blacklistTrackerFunctions.LoadRealmData()
     print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Loading Realm Data... ")
     if GetRealmName() == "Lone Wolf" then
-        badActors = BadActorsData.chaosboltEUData
+        badActors = BadActorsData.lonewolfEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     elseif GetRealmName() == "Chaos Bolt" then
         badActors = BadActorsData.chaosboltEUData
