@@ -10,6 +10,7 @@ paths:
   /blacklist:
     post:
       operationId: addBlacklistEntry
+      summary: add entry in blacklist
       requestBody:
         required: false
         content:
@@ -29,7 +30,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/empty'
-
+  /blacklist/lua:
+    get:
+      summary: download lua
+      operationId: downloadLua
+      description: this API is for file download
+      parameters:
+        - in: path
+          name: realm
+          required: false
+          schema:
+            type: string
+          description: opt. name of the realm to be filtered by
+      responses:
+        default:
+          description: error occured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        200:
+          description: Operation performed successfully.
+          content:
+            application/plain:
+              schema:
+                type: string
+                format: binary
 components:
   schemas:
     empty:
