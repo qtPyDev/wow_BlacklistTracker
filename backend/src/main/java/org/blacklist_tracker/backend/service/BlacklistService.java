@@ -8,22 +8,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class BlacklistService implements BlacklistApiDelegate {
     @Override
     public ResponseEntity<Resource> downloadLua() {
-        String file = null;
-        InputStreamResource resource = null;
-        try {
-            resource = new InputStreamResource(new FileInputStream("/home/kaidobit/ws/wow_BlacklistTracker/backend/src/main/resources/BadActorsData.lua"));
-        } catch (FileNotFoundException e) {
-            System.out.println("Datei nicht gefunden.");
-        }
+        InputStreamResource resource = new InputStreamResource(
+                new ByteArrayInputStream(
+                        "this string appears in the lua file".getBytes(
+                                StandardCharsets.UTF_8)));
 
-        assert resource != null;
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType("application/octet-stream"))
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=BadActorsData.lua")
