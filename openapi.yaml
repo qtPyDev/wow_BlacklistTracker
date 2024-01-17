@@ -47,8 +47,7 @@ paths:
           content:
             application/octet-stream:
               schema:
-                type: string
-                format: binary
+                $ref: '#/components/schemas/binary'
 components:
   schemas:
     empty:
@@ -63,6 +62,9 @@ components:
       readOnly: true
       nullable: false
       example: "error happened due to xyz"
+    binary:
+      type: string
+      format: binary
     blacklist_entry:
       title: "BlacklistEntry"
       description: "Entry of the Blacklist"
@@ -72,8 +74,14 @@ components:
         - realm
         - reason
       properties:
-        playerName:
-          title: "PlayerName"
+        guid:
+          title: "GUID"
+          description: "GUID of the blacklisted Player"
+          type: string
+          nullable: false
+          example: "XXX"
+        playername:
+          title: "Playername"
           description: "Name of the blacklisted Player"
           type: string
           nullable: false
@@ -83,7 +91,14 @@ components:
           description: "Realm of the blacklisted Player"
           type: string
           nullable: false
-          example: "Lone Wolf"
+          example: "EU - Lone Wolf"
+        faction:
+          title: "Faction"
+          description: "Faction of the blacklisted Player"
+          type: string
+          nullable: false
+          enum: ["H", "A"]
+          example: "H"
         reason:
           title: "Reason"
           description: "Reason for blacklisting"

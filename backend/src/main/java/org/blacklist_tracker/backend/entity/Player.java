@@ -21,5 +21,8 @@ public class Player implements Serializable {
     private String playername;
 
     @EqualsAndHashCode.Exclude
-    private String servername;
+    private String realm;
+
+    @EqualsAndHashCode.Exclude
+    private char faction;
 }
