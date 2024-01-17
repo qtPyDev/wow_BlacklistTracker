@@ -1,14 +1,16 @@
 spring:
   main.banner-mode: "off"
+  profiles:
+    active: postgres
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     open-in-view: false
     hibernate:
       ddl-auto: update
     properties.hibernate:
       format_sql: true
+---
+spring:
+  config.activate.on-profile: postgres
   datasource:
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    url: jdbc:postgresql://localhost:5433/blacklist_tracker

@@ -4,13 +4,13 @@ services:
   postgres:
     container_name: postgres
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=blacklist_tracker
+      - POSTGRES_USER=$SPRING_DATASOURCE_USERNAME
+      - POSTGRES_PASSWORD=$SPRING_DATASOURCE_PASSWORD
+      - POSTGRES_DB=$DATABASE_NAME
     volumes:
       - 'postgres:/var/lib/postgresql/data'
     ports:
-      - '5433:5432'
+      - '5432:5432'
     image: postgres:16.1-alpine
     networks:
       - postgres
