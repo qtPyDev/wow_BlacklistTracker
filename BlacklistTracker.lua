@@ -121,10 +121,10 @@ local colours = {
 };
 
 local appAuthor = "qtPy";
-local appVersion = "1.0.2";
-local appDate = "14-01-2024";
+local appVersion = "1.0.3";
+local appDate = "23-01-2024";
 local appName = "BlacklistTracker";
-local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU)";
+local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU), Crusader Strike (EU)";
 
 local appWidth, appHeight = 440, 150;
 local appMargin = 20;
@@ -286,9 +286,13 @@ function blacklistTrackerUI.ToggleAppInfo()
 end
 
 function blacklistTrackerUI.ToggleToolbar()
+    BL_StartWithMenu = true;
     local BlacklistTrackerToolbar =  blacklistTrackerUI.InitToolbar();
     BlacklistTrackerToolbar.SetShown(
         BlacklistTrackerToolbar, not BlacklistTrackerToolbar:IsShown());
+    BlacklistTrackerToolbar:HookScript("OnHide", function()
+        BL_StartWithMenu = false;
+    end)
 end
 
 function blacklistTrackerUI.ToggleGUIDGrabDialog(guid)
@@ -349,6 +353,9 @@ function blacklistTrackerFunctions.LoadRealmData()
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     elseif GetRealmName() == "Chaos Bolt" then
         badActors = BadActorsData.chaosboltEUData
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
+    elseif GetRealmName() == "Crusader Strike" then
+        badActors = BadActorsData.crusaderStrikeEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     else
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker is not supported on " ..GetRealmName());
@@ -484,7 +491,22 @@ end
 
 function BlacklistTracker_OnLoad()
     blacklistTrackerFunctions.LoadRealmData();
-    blacklistTrackerUI.ToggleToolbar();
+
+    local motd = blacklistTrackerFunctions.SetColour(
+        "[BlacklistTracker]: ", "LIGHTBLUE") ..blacklistTrackerFunctions.SetColour(
+            "Remember to check for updates at " ..appGithub .." or " ..appCurseforge .." every weekly reset!", "GREEN");
+
+    local addonLoadFrame = CreateFrame("Frame");
+    addonLoadFrame:RegisterEvent("ADDON_LOADED");
+    addonLoadFrame:SetScript("OnEvent", function(self, event, arg1)
+        if event == "ADDON_LOADED" and arg1 == addonName then
+            print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."Loaded Version " ..appVersion);
+            print(motd);
+            if BL_StartWithMenu == nil or BL_StartWithMenu == true then
+                blacklistTrackerUI.ToggleToolbar();
+            end
+        end
+    end)
     SlashCmdList["BlacklistTracker"] = blacklistTrackerFunctions.HandleSlashCommands;
     SLASH_BlacklistTracker1= "/BlacklistTracker";
     SLASH_BlacklistTracker2= "/BL";

@@ -212,7 +212,50 @@ local lonewolfEUData = {
     {"Vordhosbh", "Ninja"},
     {"Aminakoya", "Ninja"},
     {"Trollebolle", "Ninja"},
-    {"Acheos", "Ninja"}
+    {"Acheos", "Ninja"},
+    {"Leipetatta", "Ninja & Abusive Communication"},
+    {"Murhaaja", "Ninja"},
+    {"Haze", "Ninja"},
+    {"Stabberdig", "Ninja"},
+    {"Brieost", "Ninja"},
+    {"Shakrog", "Ninja"},
+    {"Moromoro", "Ninja"},
+    {"Twincly", "Ninja"},
+    {"Zyzzbrah", "Ninja"},
+    {"Manien", "Ninja"},
+    {"Yrana", "Ninja"},
+    {"Dragnarr", "Ninja"},
+    {"Glaticus", "Ninja"},
+    {"Zhiharka", "Ninja"},
+    {"Trollkeeper", "Ninja"},
+    {"Bluemangang", "Ninja"},
+    {"Kajsmentke", "Ninja"},
+    {"Titti", "Ninja"},
+    {"Destroier", "Ninja & Abusive Communication"},
+    {"Uhrgh", "Ninja"},
+    {"Buttershock", "Ninja"},
+    {"Hazzelnus", "Ninja"},
+    {"Utlänning", "Ninja"},
+    {"Gladiatoreh", "Ninja"},
+    {"Sqhuillex", "Ninja"},
+    {"Tiulgkaeyr", "Ninja"},
+    {"Duunder", "Scamming"},
+    {"Throrrvin", "Ninja"},
+    {"Envyy", "Ninja"},
+    {"Depz", "Ninja"},
+    {"Tellnotail", "Ninja"},
+    {"Bambinek", "Ninja"},
+    {"Dizgrith", "Ninja"},
+    {"Nhèlwillxdqt", "Ninja"},
+    {"Bigpumpy", "Ninja"},
+    {"Johnymedic", "Ninja"},
+    {"Yakor", "Ninja"},
+    {"Ohmynus", "Ninja"},
+    {"Wasonidas", "Ninja"},
+    {"Donzill", "Ninja"},
+    {"Bogordo", "Ninja"},
+    {"Estíbaliz", "Ninja"},
+    {"Feralstrike", "Ninja"}
 };
 
 local chaosboltEUData = {
@@ -234,9 +277,37 @@ local chaosboltEUData = {
     {"Dziad", "Ninja"},
     {"Bumbelbe", "Ninja"},
     {"Hommie", "Ninja"},
-    {"Elaana", "Ninja"}
+    {"Elaana", "Ninja"},
+    {"Willit", "Ninja"},
+    {"Pegatines", "Ninja"},
+    {"Iracundo", "Ninja"},
+    {"Rudzki", "Ninja"},
+    {"Rhanati", "Ninja"},
+    {"Streetsw", "Ninja"},
+    {"Ragnarus", "Ninja"},
+    {"Eltrankas", "Ninja"},
+    {"Snusfaxarn", "Ninja"},
+    {"Criyorogue", "Ninja"},
+    {"Darnius", "Ninja"},
+    {"Boggiewoggie", "Ninja"},
+    {"Elofsson", "Ninja"},
+    {"Krutsson", "Ninja"}
+};
+
+local crusaderStrikeEUData = {
+    {"Ananelle", "Ninja"},
+    {"Ashasin", "Ninja"},
+    {"Duruid", "Ninja"},
+    {"Flaffyz", "Ninja"},
+    {"Frostyboi", "Ninja"},
+    {"Hargon", "Ninja"},
+    {"Wilsonfisk", "Scamming"},
+    {"Mayambela", "Ninja"},
+    {"Paplan", "Ninja"},
+    {"Soz", "Ninja"}
 };
 
 BadActorsData.lonewolfEUData = lonewolfEUData;
 BadActorsData.chaosboltEUData = chaosboltEUData;
+BadActorsData.crusaderStrikeEUData = crusaderStrikeEUData;
 

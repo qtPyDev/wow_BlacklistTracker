@@ -1,7 +1,8 @@
 ## Interface: 20502
 ## Title: BlacklistTracker
 ## Author: qtPy
-## Version: 1.0.0
+## Version: 1.0.3
+##SavedVariables: BL_StartWithMenu
 
 BlacklistTracker.lua
 Bindings.xml
