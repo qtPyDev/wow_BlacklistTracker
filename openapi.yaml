@@ -30,7 +30,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/empty'
-  /blacklist/lua:
+  /download/lua:
     get:
       summary: download lua
       operationId: downloadLua
@@ -79,24 +79,28 @@ components:
           description: "GUID of the blacklisted Player"
           type: string
           nullable: false
+          x-field-extra-annotation: '@jakarta.validation.constraints.NotBlank(message="guid cannot be blank or null")'
           example: "XXX"
         playername:
           title: "Playername"
           description: "Name of the blacklisted Player"
           type: string
           nullable: false
+          x-field-extra-annotation: '@jakarta.validation.constraints.NotBlank(message="playername cannot be blank or null")'
           example: "Retailandy"
         realm:
           title: "Realm"
           description: "Realm of the blacklisted Player"
           type: string
           nullable: false
+          x-field-extra-annotation: '@jakarta.validation.constraints.NotBlank(message="realm cannot be blank or null")'
           example: "EU - Lone Wolf"
         faction:
           title: "Faction"
           description: "Faction of the blacklisted Player"
           type: string
           nullable: false
+          x-field-extra-annotation: '@jakarta.validation.constraints.NotBlank(message="faction cannot be blank or null")'
           enum: ["H", "A"]
           example: "H"
         reason:
@@ -104,5 +108,6 @@ components:
           description: "Reason for blacklisting"
           type: string
           nullable: false
+          x-field-extra-annotation: '@jakarta.validation.constraints.NotBlank(message="reason cannot be blank or null")'
           enum: ["ninjaloot", "scam", "unknown"]
           example: "ninjaloot"

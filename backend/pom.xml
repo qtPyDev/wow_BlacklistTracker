@@ -69,18 +69,17 @@
                             <configuration>
                                 <inputSpec>${project.basedir}/../openapi.yaml</inputSpec>
                                 <generatorName>spring</generatorName>
+                                <apiPackage>org.blacklist_tracker.backend.stubs.api</apiPackage>
+                                <modelPackage>org.blacklist_tracker.backend.stubs.model</modelPackage>
+                                <modelNameSuffix>Dto</modelNameSuffix>
                                 <supportingFilesToGenerate>
                                     ApiUtil.java
                                 </supportingFilesToGenerate>
                                 <configOptions>
-                                    <basePackage>org.blacklist_tracker.backend.stubs</basePackage>
-                                    <apiPackage>org.blacklist_tracker.backend.stubs.api</apiPackage>
-                                    <modelPackage>org.blacklist_tracker.backend.stubs.model</modelPackage>
-                                    <modelNameSuffix>Dto</modelNameSuffix>
-                                    <apiSuffix>Controller</apiSuffix>
                                     <useSpringBoot3>true</useSpringBoot3>
                                     <delegatePattern>true</delegatePattern>
                                     <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+<!--                                    <interfaceOnly>true</interfaceOnly>-->
                                 </configOptions>
                             </configuration>
                         </execution>
