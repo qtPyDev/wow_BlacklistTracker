@@ -79,7 +79,7 @@
                                     <useSpringBoot3>true</useSpringBoot3>
                                     <delegatePattern>true</delegatePattern>
                                     <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
-<!--                                    <interfaceOnly>true</interfaceOnly>-->
+                                    <interfaceOnly>true</interfaceOnly>
                                 </configOptions>
                             </configuration>
                         </execution>

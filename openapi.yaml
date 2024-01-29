@@ -70,8 +70,10 @@ components:
       description: "Entry of the Blacklist"
       type: object
       required:
-        - playerName
+        - guid
+        - playername
         - realm
+        - faction
         - reason
       properties:
         guid:
