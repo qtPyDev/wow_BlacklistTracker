@@ -1,30 +1,35 @@
 package org.blacklist_tracker.backend.service;
 
-import org.blacklist_tracker.backend.stubs.api.BlacklistApiDelegate;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
+import org.blacklist_tracker.backend.entity.Player;
+import org.blacklist_tracker.backend.repository.PlayerRepository;
+import org.blacklist_tracker.backend.stubs.model.BlacklistEntryDto;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 @Service
-public class BlacklistService implements BlacklistApiDelegate {
-    @Override
-    public ResponseEntity<Resource> downloadLua() {
-        InputStreamResource resource = new InputStreamResource(
-                new ByteArrayInputStream(
-                        "this string appears in the lua file".getBytes(
-                                StandardCharsets.UTF_8)));
+@RequiredArgsConstructor
+public class BlacklistService {
+    private final PlayerRepository playerRepo;
 
-        return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType("application/octet-stream"))
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=BadActorsData.lua")
-            .body(resource);
+    public BlacklistEntryDto addBlacklistEntry(BlacklistEntryDto blacklistEntryDto) {
+        // check if player-entry already exists, else create in db
+        playerRepo.findPlayerByGuidOrPlayername(
+                blacklistEntryDto.getGuid(),
+                blacklistEntryDto.getPlayername())
+            .ifPresentOrElse(
+                player -> System.out.println("player already in DB"),
+                () -> playerRepo.save(
+                    Player.builder()
+                        .guid(blacklistEntryDto.getGuid())
+                        .playername(blacklistEntryDto.getPlayername())
+                        .realm(blacklistEntryDto.getRealm())
+                        .faction(blacklistEntryDto.getFaction().getValue())
+                        .build()
+                )
+            );
+
+        return new BlacklistEntryDto();
     }
 }

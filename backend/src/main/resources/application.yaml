@@ -1,7 +1,7 @@
 spring:
   main.banner-mode: "off"
   profiles:
-    active: postgres
+    active: dev, postgres
   jpa:
     generate-ddl: true
     open-in-view: false
@@ -9,8 +9,16 @@ spring:
       ddl-auto: update
     properties.hibernate:
       format_sql: true
+    show-sql: true
 ---
 spring:
   config.activate.on-profile: postgres
   datasource:
     driverClassName: org.postgresql.Driver
+---
+spring:
+  config.activate.on-profile: dev
+  jpa:
+    show-sql: true
+    properties.hibernate:
+      format_sql: true
