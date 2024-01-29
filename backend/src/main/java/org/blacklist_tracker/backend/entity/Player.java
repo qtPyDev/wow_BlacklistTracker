@@ -3,6 +3,7 @@ package org.blacklist_tracker.backend.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.blacklist_tracker.backend.stubs.model.BlacklistEntryDto;
 
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Player implements Serializable {
     @Id
-    private Long guid;
+    private String guid;
 
     @EqualsAndHashCode.Exclude
     private String playername;
@@ -24,5 +25,5 @@ public class Player implements Serializable {
     private String realm;
 
     @EqualsAndHashCode.Exclude
-    private char faction;
+    private String faction;
 }
