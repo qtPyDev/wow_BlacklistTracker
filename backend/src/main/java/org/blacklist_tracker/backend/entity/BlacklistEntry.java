@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,14 +12,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class BlacklistEntry implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class BlacklistEntry extends AuditableEntity implements Serializable {
     @Id
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "guid")
-    Player player;
+    private String playerGuid;
 
-    @OneToMany(mappedBy="blacklistEntry")
+    @MapsId
+    @OneToOne(cascade = CascadeType.ALL, optional = false, mappedBy = "blacklistEntry")
+    private Player player;
+
+    @OneToMany(mappedBy = "blacklistEntry", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
-    Set<EntryReason> reasons;
+    private List<BlacklistReason> blacklistReasons;
 }

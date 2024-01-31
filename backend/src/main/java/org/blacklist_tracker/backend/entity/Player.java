@@ -1,11 +1,12 @@
 package org.blacklist_tracker.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import org.blacklist_tracker.backend.stubs.model.BlacklistEntryDto;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 @Entity
 @Getter
@@ -13,10 +14,14 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class Player implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class Player extends AuditableEntity implements Serializable {
     @Id
     private String guid;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @PrimaryKeyJoinColumn
+    BlacklistEntry blacklistEntry;
 
     @EqualsAndHashCode.Exclude
     private String playername;
