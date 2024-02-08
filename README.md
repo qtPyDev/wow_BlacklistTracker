@@ -24,6 +24,8 @@ Please note that all of these commands may be prefixed with `/bl` or `/blacklist
 
 ## Important Note
 
+This addon is strictly held under the All-Rights Reserved License. Any unauthorised remixing, copying, or redistribution of this addon is STRICTLY not allowed, and individuals who breach this may be liable to copyright infringement.
+
 PLEASE NOTE THIS ADDON CURRENTLY ONLY WORKS FOR THE FOLLOWING REALMS:
 
 - LONEWOLF (EU)
