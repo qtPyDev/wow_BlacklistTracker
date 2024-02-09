@@ -357,7 +357,7 @@ function blacklistTrackerFunctions.LoadRealmData()
     elseif GetRealmName() == "Crusader Strike" then
         badActors = BadActorsData.crusaderStrikeEUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
-   elseif GetRealmName() == "Shadowstrike (AU)" then
+   elseif GetRealmName() == "Shadowstrike" then
         badActors = BadActorsData.shadowstrikeAUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     else
