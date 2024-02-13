@@ -409,7 +409,46 @@ local crusaderStrikeEUData = {
     {"Raschor", "Ninja"}
 };
 
+local shadowstrikeAUData = {
+    {"Antiaids", "Ninja"},
+    {"Arcane", "Ninja"}, 
+    {"Exterminator", "Ninja"},
+    {"Ragecow", "Ninja"},
+    {"Methsluz", "Ninja"},
+    {"Moppaa", "Ninja"},
+    {"Snipey", "Ninja"},
+    {"Epshtein", "Ninja"},
+    {"Clairbear", "Ninja"},
+    {"Gilgax", "Ninja"},
+    {"Humanchild", "Ninja"},
+    {"Daylis", "Ninja"},
+    {"Joofine", "Ninja"},
+    {"Snackos", "Ninja"},
+    {"Borcon", "Ninja"},
+    {"Anitamaxwynn", "Ninja"},
+    {"Schizopost", "Ninja"},
+    {"Drbones", "Ninja"},
+    {"Khock", "Ninja"},
+    {"Flea", "Ninja"},
+    {"Juubi", "Ninja"},
+    {"Wargasm", "Ninja"},
+    {"Ogblazer", "Ninja"},
+    {"Itsmaam", "Ninja"},
+    {"Azteq", "Ninja"},
+    {"Ry", "Ninja"},
+    {"Nahsty", "Ninja"},
+    {"Stallone", "Ninja"},
+    {"Rengen", "Ninja"},
+    {"Themop", "Ninja"},
+    {"Cure", "Ninja"},
+    {"Holyret", "Ninja"},
+    {"Feelsbald", "Ninja"},
+    {"Echochii", "Ninja"},
+    {"Exsee", "Ninja"}
+};
+
 BadActorsData.lonewolfEUData = lonewolfEUData;
 BadActorsData.chaosboltEUData = chaosboltEUData;
 BadActorsData.crusaderStrikeEUData = crusaderStrikeEUData;
+BadActorsData.shadowstrikeAUData = shadowstrikeAUData;
 

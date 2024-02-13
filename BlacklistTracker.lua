@@ -124,7 +124,7 @@ local appAuthor = "qtPy";
 local appVersion = "1.0.3";
 local appDate = "23-01-2024";
 local appName = "BlacklistTracker";
-local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU), Crusader Strike (EU)";
+local appSupportedRealms = "Lonewolf (EU), Chaos Bolt (EU), Crusader Strike (EU), Shadowstrike (AU)";
 
 local appWidth, appHeight = 440, 150;
 local appMargin = 20;
@@ -356,6 +356,9 @@ function blacklistTrackerFunctions.LoadRealmData()
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     elseif GetRealmName() == "Crusader Strike" then
         badActors = BadActorsData.crusaderStrikeEUData
+        print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
+   elseif GetRealmName() == "Shadowstrike" then
+        badActors = BadActorsData.shadowstrikeAUData
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker loaded for " ..GetRealmName());
     else
         print(blacklistTrackerFunctions.SetColour("[BlacklistTracker]: ", "LIGHTBLUE") .."BlacklistTracker is not supported on " ..GetRealmName());
