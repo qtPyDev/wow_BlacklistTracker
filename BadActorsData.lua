@@ -374,6 +374,7 @@ local chaosboltEUData = {
 };
 
 local crusaderStrikeEUData = {
+    {"Imperator", "Idiot"}
     {"Ananelle", "Ninja"},
     {"Ashasin", "Ninja"},
     {"Duruid", "Ninja"},
